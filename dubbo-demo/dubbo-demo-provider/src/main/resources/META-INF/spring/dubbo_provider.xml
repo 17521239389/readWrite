@@ -1,0 +1,15 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+
+    <dubbo:application name="demo-provider" logger="log4j"/>
+    <dubbo:registry address="zookeeper://192.168.1.109:2181"/>
+    <!--<dubbo:registry address="zookeeper://127.0.0.1:2181"/>-->
+    <!--<dubbo:registry address="redis://127.0.0.1:6379"/>-->
+    <dubbo:protocol name="dubbo" port="-1"/>
+    <bean id="demoService" class="com.alibaba.dubbo.demo.provider.DemoServiceImpl"/>
+    <dubbo:service interface="com.alibaba.dubbo.demo.DemoService" ref="demoService" loadbalance="consistenthash"/>
+</beans>
